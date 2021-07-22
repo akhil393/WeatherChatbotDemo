@@ -1,0 +1,29 @@
+<html>
+  <head>
+    <title>Simple Getweather</title>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js">  </script>
+	<script src="//cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.4/socket.io.js"></script>
+    <script>
+	 var socket = io.connect();
+		socket.on('weather', function (msg) {
+		console.log(msg);
+		$('h2').text(msg);
+		});		
+	function onclickSubmit() {
+		     console.log('connection established ');
+			 var location=document.getElementById('Location').value; 
+			 console.log('Sending location '+ location);
+			 socket.emit('SendLocation',location)
+		}
+
+    </script>
+  </head>
+  <body>
+    <h1>GetWeather</h1>
+	<form >
+    <input type="TEXT" id="Location" size="40"><br>
+    <input type="button" id="submit" value="Submit" onclick="onclickSubmit(); return false;">
+	</form>
+	<h2 id="weather"> </h2>
+  </body>
+</html>
